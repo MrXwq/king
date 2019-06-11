@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// 类别模型
 const CgSchema = new mongoose.Schema({
     name: {
         type: String
