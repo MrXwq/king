@@ -90,7 +90,7 @@
                                 <el-input type = "textarea" v-model="item.tips"></el-input>
                             </el-form-item>
                             <el-form-item >
-                                <el-button type = "primary" size = "danger" @click="model.skills.splice(i,1)">删除</el-button>
+                                <el-button type = "danger" size = "small" @click="model.skills.splice(i,1)">删除</el-button>
                             </el-form-item>
                         </el-col>
                     </el-row>

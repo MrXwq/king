@@ -1,11 +1,10 @@
 module.exports = app => {
-    const path = require('path')
     const express = require('express')
     //这个是express的子路由，当我们需要子路由的时候就用它,因为我们会在子路由上挂载各种各样的东西
     const router = express.Router({
         // 表示合并url参数，写了这个下面的req.params.resource参能获取到
         //把父级里面的url参数合并到router里面来
-        mergeParams:true
+        useNewUrlParser: true
     })
 
     
@@ -41,8 +40,8 @@ module.exports = app => {
         // 如果获取数据中有关联数据，那么可以用populate获取完整的数据对象，而不止是关联那个
         // 因为这里的parent是写死的，我们这是通用接口，所以我们需要特殊处理，使用setOptions方法
         // let items = await req.Model.find().populate('parent').limit(10)
-        let queryOptions = {}
-        if(req.Model === 'Category'){
+        const queryOptions = {}
+        if(req.Model.modelName === 'Category'){
             queryOptions.populate = 'parent'
         }
         let items = await req.Model.find().setOptions(queryOptions).limit(10)
