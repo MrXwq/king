@@ -4,7 +4,8 @@ const app = express()
 
 const path = require('path')
 
-
+// 应该被放到环境变量里面的
+app.set('secret','rewqreqwrsdaf')
 
 // 跨域
 app.use(require('cors')())

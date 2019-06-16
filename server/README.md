@@ -136,3 +136,6 @@ app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use('/uploads',express.static(path.join(__dirname,'./uploads')))
 ```
 
+#### 用户校验
+
+在前端传过来一个token，然后解密出来，获得一个id，然后通过id在数据库中找到这个用户，再把这个用户赋值给req.user

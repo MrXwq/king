@@ -1,5 +1,7 @@
 module.exports = app => {
     const express = require('express')
+    const jwt = require('jsonwebtoken')
+    const AdminUser = require('../../models/AdminUser')
     //这个是express的子路由，当我们需要子路由的时候就用它,因为我们会在子路由上挂载各种各样的东西
     const router = express.Router({
         // 表示合并url参数，写了这个下面的req.params.resource参能获取到
@@ -34,8 +36,21 @@ module.exports = app => {
     })
 
     // 获取分类所有信息
-    router.get('/',async (req,res) => {
+    router.get('/',async (req, res, next) => {
+        // 获取请求头中的authorization,前端是大写A对应服务端是小写a
+        // 这里||'',是怕如果没有的话会报错
+        const token = String(req.headers.authorization || '').split(' ').pop()
+        // 校验,解密出来获取id,我们可以通过用户id生存token,也可以用token解析出id
+
+        // const tokenData = jwt.verify(token,app.get('secret'))
+        // { id: '5d05a2bb724bba2484c30209', iat: 1560655297 }\
+        // 解构赋值出id
+        const {id} = jwt.verify(token,app.get('secret'))
+        req.user = await AdminUser.findById(id)
         
+        await next()
+    } ,async (req,res) => {
+        console.log(req.user)
 
         // 如果获取数据中有关联数据，那么可以用populate获取完整的数据对象，而不止是关联那个
         // 因为这里的parent是写死的，我们这是通用接口，所以我们需要特殊处理，使用setOptions方法
@@ -77,4 +92,30 @@ module.exports = app => {
         file.url = `http://localhost:3000/uploads/${file.filename}`
         res.send(file)
     })
+    app.post('/admin/api/login', async (req,res) => {
+        const {username,password} = req.body
+        // 1.根据用户名查找用户,因为密码被散列了，所以不能按密码来找
+        
+        // 在设置用户数据库的时候，我们默认把密码不显示，所以我们这里是取不到的，我们需要在这里加一个.select('+password')
+        const user = await AdminUser.findOne({username}).select('+password')
+        if(!user) {
+            return res.status(422).send({
+                message: '用户不存在'
+            })
+        }
+        // 2.校验密码
+        // 对比请求的密码和数据库中的密码
+        const isValue = require('bcrypt').compareSync(password, user.password)
+        if(!isValue) {
+            return res.status(422).send({
+                message: '密码错误'
+            })
+        }
+        // 3.返回token
+        
+        // app.get()只有一个参数就代表获取配置，如果有两个那么就是获取路由
+        // token的生成
+        const token = jwt.sign({id: user._id},app.get('secret'))
+        res.send({token})
+    }) 
 }

@@ -117,7 +117,8 @@ export default {
             model: {
                 name:'',
                 avatar:'',
-                scores: {}
+                scores: {},
+                skills: []
             },
         }
     },
@@ -138,7 +139,7 @@ export default {
         async fetch() {
             const res = await this.$http.get(`rest/heroes/${this.id}`)
             // 如果有同名的，那么，res.data会覆盖掉this.model
-            this.model = Object.assign({},this.model,res.data)
+            this.model = Object.assign({}, this.model, res.data)
         },
         // 获取分类信息
         async fetchCategories() {
