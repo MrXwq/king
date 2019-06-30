@@ -66,9 +66,13 @@ vue ui
 
 #### 因为是移动端
 
+工具样式概念：到时写样式就不用css上写那么麻烦了，直接给个类名
+
+用到了vscode的插件px to rem 单位换算 按 alt+z
+
 ```scss
 /*
-	重置
+	样式重置
 */
 *{
     box-sizing: border-box;

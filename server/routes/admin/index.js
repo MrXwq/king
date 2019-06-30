@@ -1,6 +1,8 @@
 module.exports = app => {
     const express = require('express')
-    
+    const jwt = require('jsonwebtoken')
+    const assert = require('http-assert')
+    const AdminUser = require('../../models/AdminUser')
     //这个是express的子路由，当我们需要子路由的时候就用它,因为我们会在子路由上挂载各种各样的东西
     const router = express.Router({
         // 表示合并url参数，写了这个下面的req.params.resource参能获取到
@@ -57,6 +59,7 @@ module.exports = app => {
     // 登陆校验中间件
     const authMiddleware = require('../../middleware/auth')
     const resourceMiddleware = require('../../middleware/resource')
+
     // 这里我们加了前缀和处理函数
     app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), router)
 

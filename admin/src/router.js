@@ -25,12 +25,13 @@ Vue.use(Router)
 import http from './http'
 Vue.prototype.$http = http 
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: { isPublic: true }
     },
     {
       path: '/',
@@ -66,3 +67,16 @@ export default new Router({
     
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(!to.meta.isPublic && !localStorage.token ){
+    return next('/login')
+  }
+  next()
+})
+/**
+ * to: 你要去得哪个页面
+ * from: 你来自哪个页面
+ * next: 你接下来要进行的处理
+ */
+export default router

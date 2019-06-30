@@ -9,7 +9,8 @@
                 <!-- action是自带的ajax接口 -->
                 <el-upload
                 class="avatar-uploader"
-                :action="$http.defaults.baseURL+'/upload'"
+                :action="uploadUrl"
+                :headers="getAuthHeaders()"
                 :show-file-list="false"
                 :on-success="afterUpload"
                 >
@@ -29,6 +30,7 @@
 <script>
 export default {
     props: {
+        // 这里能获取到id，是因为在路由设置了props为true，这样，我们就能直接props里获取到route.params上的数据了
         id: {}
     },
     data() {
@@ -63,6 +65,8 @@ export default {
         }
     },
     created() {
+        console.log(this.$route)
+        console.log(this.$router)
         // 前面这个条件满足之后才执行后面的方法
         this.id && this.fetch()
     }

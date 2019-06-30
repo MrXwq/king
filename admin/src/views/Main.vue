@@ -69,7 +69,10 @@
     </el-header>
     
     <el-main>
-      <router-view></router-view>
+      <!-- 解决点击编辑之后，再跳转至新建英雄页数据还在
+            原因是共用同一个router-view，我们用$route.path去区分就好
+       -->
+      <router-view :key = "$route.path"></router-view>
     </el-main>
   </el-container>
 </el-container>
