@@ -70,6 +70,8 @@ vue ui
 
 用到了vscode的插件px to rem 单位换算 按 alt+z
 
+定义flex布局
+
 ```scss
 /*
 	样式重置

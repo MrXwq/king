@@ -3,7 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import './style.scss'
+import './assets/scss/style.scss'
+
+// 引入vue-awesome-swiper轮播图
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
 
 Vue.config.productionTip = false
 
