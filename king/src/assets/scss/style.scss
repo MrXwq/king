@@ -66,6 +66,9 @@ a {
 .flex-column {
     flex-direction: column;
 }
+.flex-wrap {
+    flex-wrap: wrap;
+}
 
 
 
@@ -129,11 +132,44 @@ a {
 }
 
 // nav
-.nav-item {
-    // 每个都需要设置边框，不然一个有，其他没有，x轴就不对齐了
-    border-bottom: 0.2308rem solid transparent;
-    // 有active就显active的样式，没有就显原来的
-    &.active {
-        border-bottom: 0.2308rem solid #fff;
+nav {
+    display: flex;
+    .nav-item {
+        // 每个都需要设置边框，不然一个有，其他没有，x轴就不对齐了
+        border-bottom: 0.2308rem solid transparent;
+        padding-bottom: 0.2rem;
+        // 有active就显active的样式，没有就显原来的
+        &.active {
+            color: map-get($map: $colors, $key: 'primary');
+            border-bottom-color: map-get($map: $colors, $key: 'primary' );
+        }
+    }
+    &.nav-inverse {
+        .nav-item {
+            color: map-get($map: $colors, $key: 'white' );
+            &.active{
+                border-bottom-color: map-get($map: $colors, $key: 'white' );
+            }
+        }
+    }
+}
+
+// 精灵图
+.sprite{
+    background: url(../images/index.png) no-repeat 0 0;
+    // 一般设计师都是按iphone6的尺寸来设计图片的,如果做的图片也是375的话,就会比较模糊,所以会使用双倍像素
+    background-size: 28.8462rem;//375px
+    display: inline-block;
+    // 爆料站图标
+    &.sprite-news {
+        width: 1.7692rem;//23px;
+	    height: 1.5385rem;//20px
+        background-position: 63.546% 15.517%; //-448px -135px;
+    }
+    // 收起箭头图标
+    &.sprite-arrow {
+        background-position: 38.577% 52.076%;
+        width: 0.7692rem;//10px
+        height: 0.7692rem;//10px
     }
 }
