@@ -19,6 +19,8 @@ app.use('/uploads',express.static(path.join(__dirname,'./uploads')))
 require('./routes/admin/index')(app)
 //连接数据库
 require('./plugins/db')(app)
+// 前端的路由
+require('./routes/web/index')(app)
 
 app.listen(3000,() => {
     console.log('http://localhost:3000')

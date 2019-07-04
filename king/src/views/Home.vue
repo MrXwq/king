@@ -31,47 +31,32 @@
     </div>
     <!--end of nav-icons -->
 
-    <m-card title = "新闻资讯" icon = "Menu">
-      <nav class="jc-between">
-          <div class="nav-item active">
-            <div class="nav-link">
-              热门
-            </div>
-          </div>
-          <div class="nav-item">
-            <div class="nav-link">
-              新闻
-            </div>
-          </div>
-          <div class="nav-item">
-            <div class="nav-link">
-              公告
-            </div>
-          </div>
-          <div class="nav-item">
-            <div class="nav-link">
-              活动
-            </div>
-          </div>
-          <div class="nav-item">
-            <div class="nav-link">
-              赛事
-            </div>
-          </div>
-        </nav>
-        <div class="pt-3">
-          <swiper>
-              <swiper-slide v-for="n in 5" :key="n">
-                  <div class="py-2" v-for = "n in 5" :key="n">
-                      <span>[新闻]</span>
-                      <span>|</span>
-                      <span>姐姐镜剪影曝光，曜往事大揭秘！</span>
-                      <span>07/01</span>
-                  </div>
-              </swiper-slide>
-          </swiper>
+    <m-list-card icon = "Menu" title = "新闻资讯" :categories = "newCats">
+      <!-- 因为是在自定义组件中写数据，所以才需要那么复杂，slot里面的只能展示父组件写的东西，循环就麻烦了 -->
+      <template #items = '{category}'>
+        <router-link tag="div" :to="`/articles/${news._id}`"
+         class="py-2 fs-lg d-flex" v-for = "(news,i) in category.newsList" :key="i">
+          <span class="text-info">[{{news.categoryName}}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-dark-1 text-ellipsis">{{news.title}}</span>
+          <span class="text-grey-1 fs-sm">{{news.createdAt | data}}</span>
+        </router-link >
+      </template>
+    </m-list-card>
+
+    <m-list-card icon = "card-hero" title = "英雄列表" :categories = "heroCats">
+      <!-- 因为是在自定义组件中写数据，所以才需要那么复杂，slot里面的只能展示父组件写的东西，循环就麻烦了 -->
+      <template #items = '{category}'>
+        <div class="d-flex flex-wrap " style="margin: 0 -0.5rem;">
+          <router-link tag="div" :to="`/heroes/${hero._id}`"
+          class="p-2 text-center" style="width:20%;" 
+          v-for = "(hero,i) in category.heroList" :key="i">
+            <img class="w-100" :src="hero.avatar" alt="">
+            <div>{{hero.name}}</div>
+          </router-link>
         </div>
-    </m-card>
+      </template>
+    </m-list-card>
 
     <m-card title="英雄列表" icon = "hero"></m-card>
     <m-card title="精彩视频" icon = "hero"></m-card>
@@ -87,16 +72,40 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-
+import dayjs from 'dayjs'
 export default {
+   filters: {
+        data(val) {
+            return dayjs(val).format('MM/DD')
+        }
+    },
   data() {
     return {
       swiperOption: {
         pagination: {
           el: '.pagination-home'
         }
-      }
+      },
+
+      newCats:[],
+      heroCats:[]
     }
+  },
+  methods: {
+    // 获取新闻资讯
+    async fetchNewsCats() {
+      const res = await this.$http.get('news/list')
+      this.newCats = res.data
+    },
+    async fetchHeroCats() {
+      const res = await this.$http.get('heroes/list')
+      this.heroCats = res.data
+      console.log(res.data)
+    }
+  },
+  created(){
+    this.fetchNewsCats()
+    this.fetchHeroCats()
   }
 }
 </script>

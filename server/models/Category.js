@@ -10,6 +10,20 @@ const CgSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,ref:'Category'
     }
 })
+
+CgSchema.virtual('children', {
+    localField: '_id',
+    foreignField: 'parent', //外键
+    justOne: false,
+    ref: 'Category' //关联的模型
+})
+
+CgSchema.virtual('newsList', {
+    localField: '_id',
+    foreignField: 'categories', 
+    justOne: false,
+    ref: 'Article' 
+})
  
 
 module.exports = mongoose.model('Category', CgSchema)

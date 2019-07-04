@@ -47,7 +47,8 @@ module.exports = app => {
         if(req.Model.modelName === 'Category'){
             queryOptions.populate = 'parent'
         }
-        let items = await req.Model.find().setOptions(queryOptions).limit(10)
+        // find()查找所有
+        let items = await req.Model.find().setOptions(queryOptions).limit(100)
         res.send(items)
     })
 

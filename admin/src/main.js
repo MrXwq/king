@@ -11,7 +11,6 @@ import router from './router'
 Vue.config.productionTip = false
 
 // 可以理解它为一个代码块，全局都可以使用，跟创建一个Vue的实例差不多，我们需要让Vue的每一个实例都拥有这个东西
-
 Vue.mixin({
   computed: {
     uploadUrl() {

@@ -22,6 +22,10 @@ a {
     color: #999;
 }
 
+p {
+    line-height: 1.5rem;
+}
+
 @each $colorKey, $color in $colors {
     //文字颜色
     .text-#{$colorKey} {
@@ -56,6 +60,14 @@ a {
     .fs-#{$sizeKey} {
         font-size: $size * $base-font-size;
     }
+}
+
+// 文字溢出处理
+.text-ellipsis {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; //不换行
 }
 
 // flex
@@ -171,5 +183,12 @@ nav {
         background-position: 38.577% 52.076%;
         width: 0.7692rem;//10px
         height: 0.7692rem;//10px
+    }
+}
+
+// 边框
+@each $var in (top, bottom, right, left) {
+    .border-#{$var} {
+        border-#{$var}: solid 1px $border-color;
     }
 }

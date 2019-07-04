@@ -5,6 +5,8 @@ const HeroSchema = new mongoose.Schema({
     name: {type: String},
     // 头像
     avatar: {type: String},
+    // 背景图
+    banner: {type: String},
     // 称号
     title: {type: String},
     // 分类,因为一个英雄可能有多个分类，所以得写成数组的形式
@@ -26,6 +28,10 @@ const HeroSchema = new mongoose.Schema({
         icon: {type: String},
         // 名字
         name: {type: String},
+        // 冷却值
+        delay: {type: String},
+        // 消耗
+        cost: {type: String},
         // 描述
         description: {type: String},
         // 提示
@@ -49,4 +55,4 @@ const HeroSchema = new mongoose.Schema({
 })
  
 
-module.exports = mongoose.model('Hero', HeroSchema)
+module.exports = mongoose.model('Hero', HeroSchema, 'heroes')

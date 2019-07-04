@@ -139,3 +139,28 @@ app.use('/uploads',express.static(path.join(__dirname,'./uploads')))
 #### 用户校验
 
 在前端传过来一个token，然后解密出来，获得一个id，然后通过id在数据库中找到这个用户，再把这个用户赋值给req.user
+
+#### 引用所有关联
+
+```shell
+npm i require-all
+```
+
+使用
+
+把文件上的所有文件引用进来，使用一遍
+
+```js
+require('require-all')(__dirname + '/../models')
+```
+
+#### 使用chrome控制台
+
+查找页面的数据
+
+```js
+$$('.newslist .title').map(el => {
+    el.innerHTML
+})
+```
+
