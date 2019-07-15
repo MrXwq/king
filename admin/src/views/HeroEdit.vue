@@ -17,6 +17,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label = "头像">
+                        <!-- 为什么要使用$set，因为vue有个缺点，不能监听到数组的属性变化，所以需要$set -->
                         <el-upload
                         class="avatar-uploader"
                         :action="uploadUrl"
@@ -171,19 +172,16 @@ export default {
                 scores: {},
                 skills: [],
                 partners: [],
-                scores: {
-                    difficult: 0
-                }
             },
         }
     },
     methods: {
         async save() {
-            let res
+            
             if(this.id){
-                res = await this.$http.put(`rest/heroes/${this.id}`,this.model)
+                await this.$http.put(`rest/heroes/${this.id}`,this.model)
             }else{
-                res = await this.$http.post('rest/heroes',this.model)
+                await this.$http.post('rest/heroes',this.model)
             }
             // 保存之后返回
             // this.$router.push('/heroes/list')

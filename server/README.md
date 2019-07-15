@@ -164,3 +164,17 @@ $$('.newslist .title').map(el => {
 })
 ```
 
+#### 格式化时间
+
+```shell
+npm i dayjs
+```
+
+使用
+
+```js
+data(val) {
+    return dayjs(val).format('MM/DD')
+}
+```
+

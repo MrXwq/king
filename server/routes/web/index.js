@@ -175,9 +175,8 @@ module.exports = app => {
         const data = await Hero
         // populate把分类调出来
         .findById(req.params.id)
-        .populate('categories')
+        .populate('categories items1 items2 partners.hero')
         .lean()
-        console.log(data)
         res.send(data)
     })
 
