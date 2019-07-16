@@ -178,3 +178,17 @@ data(val) {
 }
 ```
 
+#### 发布和部署
+
+生产环境的时候，我们就不能npm run serve了，只会访问静态的文件夹，我们可以全局安装serve
+
+```shell
+npm i -g serve
+```
+
+使用
+
+```shell
+serve dist
+```
+

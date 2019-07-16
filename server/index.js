@@ -12,6 +12,10 @@ app.use(require('cors')())
 
 // 新版express可以不用下载bodyParser处理json数据和可以发出post请求了
 app.use(express.json())
+// 静态文件托管
+app.use('/admin/',express.static(path.join(__dirname,'./admin')))
+// 静态文件托管
+app.use('/',express.static(path.join(__dirname,'./web')))
 // 表示uploads下的都是静态文件，在这个路径下的文件都可以通过/uploads来访问
 app.use('/uploads',express.static(path.join(__dirname,'./uploads')))
 
