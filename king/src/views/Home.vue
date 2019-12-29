@@ -58,11 +58,8 @@
       </template>
     </m-list-card>
 
-    <m-card title="英雄列表" icon = "hero"></m-card>
     <m-card title="精彩视频" icon = "hero"></m-card>
     <m-card title="图文攻略" icon = "hero"></m-card>
-
-<div>666</div><div>666</div><div>666</div><div>666</div><div>666</div><div>666</div><div>666</div>
 
     
 
@@ -83,8 +80,13 @@ export default {
     return {
       swiperOption: {
         pagination: {
-          el: '.pagination-home'
-        }
+          el: '.pagination-home',
+          clickable: true,
+        },
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+          },
       },
 
       newCats:[],
@@ -100,7 +102,6 @@ export default {
     async fetchHeroCats() {
       const res = await this.$http.get('heroes/list')
       this.heroCats = res.data
-      console.log(res.data)
     }
   },
   created(){

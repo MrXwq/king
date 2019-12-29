@@ -51,7 +51,8 @@ export default {
         async fetch() {
             const res = await this.$http.get(`/articles/${this.id}`)
             this.model = res.data
-            console.log(res)
+            console.log(this.model)
+            console.log(typeof(res.data.createdAt))
         }
     },
     created() {
