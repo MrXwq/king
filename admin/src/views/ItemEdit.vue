@@ -65,8 +65,6 @@ export default {
         }
     },
     created() {
-        console.log(this.$route)
-        console.log(this.$router)
         // 前面这个条件满足之后才执行后面的方法
         this.id && this.fetch()
     }
